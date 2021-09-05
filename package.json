@@ -1,0 +1,33 @@
+{
+  "name": "poimting-poker-server",
+  "version": "1.0.0",
+  "description": "server for pointing-poker",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "mon": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lexomut/-Pointing-Poker-Server.git"
+  },
+  "author": "lexomut",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lexomut/-Pointing-Poker-Server/issues"
+  },
+  "homepage": "https://github.com/lexomut/-Pointing-Poker-Server#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-ws": "^5.0.2",
+    "mongoose": "^6.0.4",
+    "ws": "^8.2.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "nodemon": "^2.0.12"
+  }
+}

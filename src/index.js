@@ -2,9 +2,11 @@ import express from 'express'
 import mongoose from 'mongoose'
 import {gameRouter} from "./game/gameRouter.js";
 import {playerRouter} from "./player/playerRouter.js";
+import fileUpload from "express-fileupload"
 const PORT =  process.env.PORT || 5000;
 const DB_URL="mongodb+srv://reactjs:reactjs@cluster0.gncmp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 const app=express()
+ app.use(fileUpload({}))
 app.use(express.json())
 app.use('/game',gameRouter)
 app.use('/player',playerRouter)

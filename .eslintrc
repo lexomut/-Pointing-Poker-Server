@@ -1,0 +1,84 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "jest": true
+
+  },
+  "extends": [
+//    "airbnb-typescript/base",
+    "eslint:recommended",
+//    "plugin:@typescript-eslint/recommended",
+    "prettier",
+    "plugin:unicorn/recommended",
+    "plugin:prettier/recommended"
+//    "prettier/@typescript-eslint"
+
+  ],
+//  "parser": "@typescript-eslint/parser",
+//  "parserOptions": {
+//    "project": "./tsconfig.json"
+//  },
+  "plugins": [
+//    "@typescript-eslint",
+    "prettier",
+    "unicorn"
+//    "jest"
+  ],
+  "rules": {
+    "unicorn/filename-case": [
+      "error",
+      {
+        "cases": {
+          "camelCase": true,
+          "pascalCase": true
+        }
+      }
+    ],
+    "unicorn/prevent-abbreviations": [
+      "error",
+      {
+        "replacements": {
+          "e": {
+            "event": false
+          },
+          "res": false,
+          "cmd": {
+            "command": true
+          },
+          "errCb": {
+            "handleError": true
+          },
+          "req" : false
+        }
+      }
+    ],
+    "no-plusplus": "off",
+    "no-console": "warn",
+    "max-len": ["warn", { "code": 120 }],
+    "indent": ["warn", 2, {
+      "SwitchCase": 1
+    }],
+//    "@typescript-eslint/indent": ["warn", 2, {
+//      "SwitchCase": 1
+//    }],
+//    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
+//    "import/no-extraneous-dependencies": [
+//      "warn",
+//      {
+//        "devDependencies": false,
+//        "optionalDependencies": false,
+//        "peerDependencies": false,
+//        "bundleDependencies": false,
+//        "packageDir": "./"
+//      }
+//    ],
+    "import/prefer-default-export": "off",
+    "prettier/prettier": ["error", { "endOfLine": "auto" }],
+    "no-param-reassign": ["error", {
+      "props": false
+    }],
+    "import/extensions": "off"
+  },
+  "ignorePatterns": ["*config.js"]
+}

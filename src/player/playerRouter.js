@@ -27,11 +27,18 @@ playerRouter.get("/:id", async (req, res) => {
 });
 
 playerRouter.post("/", async (req, res) => {
-  const { playerConfig } = req.body;
+  let { userConfig } = req.body;
+  userConfig = JSON.parse(userConfig);
+  if (!userConfig.firstName)
+    return res.status(400).json("first name is undefined");
   try {
-    const player = await PlayerService.createPlayer(req.body, req.files.avatar);
+    const player = await PlayerService.createPlayer(
+      userConfig,
+      req.files && req.files.avatar
+    );
     res.status(200).json(player);
   } catch (error) {
     res.status(500).json(error);
+    console.log(error);
   }
 });

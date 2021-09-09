@@ -6,7 +6,6 @@ import { playerRouter } from "./player/playerRouter.js";
 import fileUpload from "express-fileupload";
 import cors from "cors";
 import { webSocketFunction } from "./realtime/WebSocketFunction.js";
-
 const PORT = process.env.PORT || 5000;
 const DB_URL =
   "mongodb+srv://reactjs:reactjs@cluster0.gncmp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
@@ -14,14 +13,14 @@ const app = express();
 const expressWs = expressWsModule(app);
 export const wss = expressWs.getWss();
 
-const WSrouter = express.Router();
-WSrouter.ws("/", webSocketFunction);
+const router = express.Router();
+router.ws("/", webSocketFunction);
 
 app.use(cors());
 app.use(fileUpload({}));
-app.use(express.json());
-app.use("/ws", WSrouter);
-// app.ws("/ws", webSocketFunction);
+// app.use(express.json());
+app.use("/ws", router);
+app.ws("/ws", webSocketFunction);
 app.use("/game", gameRouter);
 app.use("/player", playerRouter);
 app.use(express.static("static"));

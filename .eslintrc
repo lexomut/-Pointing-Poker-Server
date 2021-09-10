@@ -83,4 +83,6 @@
     "import/extensions": "off"
   },
   "ignorePatterns": ["*config.js"]
+
+
 }

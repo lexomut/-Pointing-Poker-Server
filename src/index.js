@@ -11,15 +11,15 @@ const DB_URL =
   "mongodb+srv://reactjs:reactjs@cluster0.gncmp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const app = express();
 const expressWs = expressWsModule(app);
-export const wss = expressWs.getWss();
+export const aWss = expressWs.getWss();
 
 const router = express.Router();
 router.ws("/", webSocketFunction);
 
 app.use(cors());
 app.use(fileUpload({}));
-// app.use(express.json());
-app.use("/ws", router);
+app.use(express.json());
+// app.use("/ws", router);
 app.ws("/ws", webSocketFunction);
 app.use("/game", gameRouter);
 app.use("/player", playerRouter);

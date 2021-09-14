@@ -1,8 +1,10 @@
 import { handler } from "./handler.js";
+import { addChatMessageToBase } from "../game/addChatMessageToBase.js";
 // eslint-disable-next-line no-unused-vars
 export function webSocketFunction(ws, req) {
   console.log("подключение c клиентом установлено");
-  // ws.send("сервер: вы подключились ко мне");
+
+  // ws.send();
 
   ws.on("message", function (message) {
     console.log(message);
@@ -10,6 +12,7 @@ export function webSocketFunction(ws, req) {
       const mesg = JSON.parse(message);
       switch (mesg.event) {
         case "userConnection":
+          handler.initMessage(ws, mesg);
           connectionHandler(
             ws,
             mesg,
@@ -17,7 +20,12 @@ export function webSocketFunction(ws, req) {
           );
           break;
         case "message":
+          if (!mesg.chatMessage) {
+            sendError(ws, "нет обекта сообшения чата");
+            return;
+          }
           connectionHandler(ws, mesg, handler.broadcastMessage.bind(handler));
+          addChatMessageToBase(mesg.gameID, mesg.chatMessage);
           break;
         case "setGameState":
           connectionHandler(ws, mesg, handler.setGameState.bind(handler));
@@ -35,6 +43,9 @@ export function webSocketFunction(ws, req) {
 function connectionHandler(ws, mesg, callback) {
   ws.id = mesg.gameID;
   callback(ws, mesg);
+}
+function sendError(ws, errorMessage) {
+  ws.send({ event: "error", errorMessage });
 }
 
 // ws.on("close", () => {

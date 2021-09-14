@@ -20,4 +20,4 @@ class PlayerService {
   }
 }
 
-export default new PlayerService();
+export const playerService = new PlayerService();

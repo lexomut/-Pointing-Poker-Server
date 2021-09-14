@@ -1,7 +1,9 @@
 import mongoose from "mongoose";
 
-const Game = new mongoose.Schema({
+const GameSchema = new mongoose.Schema({
   status: { type: String, required: true },
   users: Array,
+  onlineUsers: Array,
+  chatMessages: { type: Array, required: true },
 });
-export default mongoose.model("Game", Game);
+export const Game = mongoose.model("Game", GameSchema);

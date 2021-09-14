@@ -1,6 +1,6 @@
 import Router from "express";
 import Player from "./playerTypes.js";
-import PlayerService from "./playerService.js";
+import { playerService } from "./playerService.js";
 
 export const playerRouter = Router();
 
@@ -18,7 +18,7 @@ playerRouter.get("/:id", async (req, res) => {
   const { id } = req.params;
   if (!id) res.status(400).json({ massage: "id не указан" });
   try {
-    const playerConfig = await PlayerService.getPlayer(id);
+    const playerConfig = await playerService.getPlayer(id);
 
     res.status(200).json(playerConfig);
   } catch (error) {
@@ -32,7 +32,7 @@ playerRouter.post("/", async (req, res) => {
   if (!userConfig.firstName)
     return res.status(400).json("first name is undefined");
   try {
-    const player = await PlayerService.createPlayer(
+    const player = await playerService.createPlayer(
       userConfig,
       req.files && req.files.avatar
     );

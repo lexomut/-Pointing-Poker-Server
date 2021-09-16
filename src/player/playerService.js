@@ -7,6 +7,7 @@ class PlayerService {
     const avatarUrl = file ? fileService.saveFile(file) : "default";
     try {
       const player = await Player.create({ ...playerConfig, avatarUrl });
+      player.userID = player._id;
       return player;
     } catch (error) {
       console.log("ошибка записи в базу", error);

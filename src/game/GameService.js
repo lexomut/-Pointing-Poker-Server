@@ -6,6 +6,7 @@ class GameService {
     try {
       // console.log("функция создания игры");
       const game = await Game.create({ ...gameConfig });
+      game.gameID = game._id;
       return game;
     } catch (error) {
       console.log("ошибка записи в базу", error);

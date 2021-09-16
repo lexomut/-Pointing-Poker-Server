@@ -6,5 +6,6 @@ const Player = new mongoose.Schema({
   lastNme: String,
   jobPosition: String,
   avatarUrl: String,
+  userID: String,
 });
 export default mongoose.model("Player", Player);

@@ -29,10 +29,12 @@ class Handler {
     try {
       const game = await gameService.getGame(gameID);
       const event = "initMessage";
-      ws.send({ ...message, event, game });
-    } catch {
-      ws.send("при получении данных из базы произошла ошибка");
-      // console.log("при получении данных из базы произошла ошибка");
+      ws.send(JSON.stringify({ ...message, event, game }));
+    } catch (error) {
+      ws.send(
+        "сервер: initMessage - при получении данных из базы произошла ошибка"
+      );
+      console.log("при получении данных из базы произошла ошибка", error);
     }
   }
 }

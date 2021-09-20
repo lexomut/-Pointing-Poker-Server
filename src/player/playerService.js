@@ -8,6 +8,8 @@ class PlayerService {
     try {
       const player = await Player.create({ ...playerConfig, avatarUrl });
       player.userID = player._id;
+      player.imgSrc = avatarUrl;
+      console.log("playerу", avatarUrl, player);
       return player;
     } catch (error) {
       console.log("ошибка записи в базу", error);

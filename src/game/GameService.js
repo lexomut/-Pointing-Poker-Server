@@ -4,9 +4,10 @@ class GameService {
   async createGame(gameConfig) {
     if (!gameConfig) throw new Error("нет оъекта игры");
     try {
-      // console.log("функция создания игры");
-      const game = await Game.create({ ...gameConfig });
+      console.log("функция создания игры");
+      let game = await Game.create({ ...gameConfig });
       game.gameID = game._id;
+      console.log(game);
       return game;
     } catch (error) {
       console.log("ошибка записи в базу", error);

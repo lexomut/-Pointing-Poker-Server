@@ -5,5 +5,6 @@ const GameSchema = new mongoose.Schema({
   users: Array,
   onlineUsers: Array,
   chatMessages: { type: Array, required: true },
+  gameID: String,
 });
 export const Game = mongoose.model("Game", GameSchema);

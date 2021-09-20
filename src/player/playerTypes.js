@@ -3,9 +3,11 @@ import mongoose from "mongoose";
 const Player = new mongoose.Schema({
   // status: { type: String, required: true },
   firstName: { type: String, required: true },
-  lastNme: String,
+  lastName: String,
   jobPosition: String,
-  avatarUrl: String,
+  role: String,
+  imgSrc: String,
   userID: String,
+  initials: String,
 });
 export default mongoose.model("Player", Player);

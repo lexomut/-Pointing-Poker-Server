@@ -15,6 +15,7 @@ export function webSocketFunction(ws, req) {
       switch (mesg.event) {
         case USER_CONNECTION:
           handler.initMessage(ws, mesg);
+          console.log(timeout.includes(mesg.user.userID), timeout);
           if (!timeout.includes(mesg.user.userID))
             connectionHandler(
               ws,
@@ -25,7 +26,7 @@ export function webSocketFunction(ws, req) {
           setTimeout(() => {
             const index = timeout.indexOf(mesg.user.userID);
             if (index > 0) timeout.slice(index, 1);
-          }, 1000 * 60 * 3);
+          }, 1000 * 30);
           break;
         case CHAT_MESSAGE:
           if (!mesg.chatMessage) {

@@ -21,7 +21,8 @@ export function webSocketFunction(ws, req) {
               mesg,
               handler.broadcastConnection.bind(handler)
             );
-          setTimeout(() => (timeout = true), 1000 * 60 * 3);
+          timeout = true;
+          setTimeout(() => (timeout = false), 1000 * 60 * 3);
           break;
         case CHAT_MESSAGE:
           if (!mesg.chatMessage) {

@@ -1,6 +1,7 @@
 import { handler } from "./handler.js";
 import { addChatMessageToBase } from "../game/addChatMessageToBase.js";
 import { CHAT_MESSAGE, SET_GAME_STATE, USER_CONNECTION } from "./Constants.js";
+let timeout = false;
 // eslint-disable-next-line no-unused-vars
 export function webSocketFunction(ws, req) {
   console.log("подключение c клиентом установлено");
@@ -14,11 +15,13 @@ export function webSocketFunction(ws, req) {
       switch (mesg.event) {
         case USER_CONNECTION:
           handler.initMessage(ws, mesg);
-          connectionHandler(
-            ws,
-            mesg,
-            handler.broadcastConnection.bind(handler)
-          );
+          if (!timeout)
+            connectionHandler(
+              ws,
+              mesg,
+              handler.broadcastConnection.bind(handler)
+            );
+          setTimeout(() => (timeout = true), 1000 * 60 * 3);
           break;
         case CHAT_MESSAGE:
           if (!mesg.chatMessage) {

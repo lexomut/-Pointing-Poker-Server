@@ -6,9 +6,13 @@ class PlayerService {
     if (!playerConfig) throw new Error("нет оъекта игрока");
     const avatarUrl = file ? fileService.saveFile(file) : "default";
     try {
+      playerConfig.initials = (
+        playerConfig.firstName[0] + (playerConfig.lastName[0] || "")
+      ).toUpperCase();
       const player = await Player.create({ ...playerConfig, avatarUrl });
       player.userID = player._id;
       player.imgSrc = avatarUrl;
+
       console.log("playerу", avatarUrl, player);
       return player;
     } catch (error) {

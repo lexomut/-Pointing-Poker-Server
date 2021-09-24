@@ -3,7 +3,7 @@ import { gameService } from "../game/GameService.js";
 
 class Handler {
   broadcastConnection(ws, message) {
-    console.log(message);
+    // console.log(message);
     this.initMessage;
 
     this.broadcastMessage(ws, message);

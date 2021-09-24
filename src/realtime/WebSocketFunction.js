@@ -1,6 +1,7 @@
 import { handler } from "./handler.js";
 import { addChatMessageToBase } from "../game/addChatMessageToBase.js";
 import { CHAT_MESSAGE, SET_GAME_STATE, USER_CONNECTION } from "./Constants.js";
+import { addUserToLobby } from "../game/addUserToLobby.js";
 let timeout = [];
 // eslint-disable-next-line no-unused-vars
 export function webSocketFunction(ws, req) {
@@ -8,14 +9,14 @@ export function webSocketFunction(ws, req) {
 
   // ws.send();
 
-  ws.on("message", function (message) {
-    console.log(message);
+  ws.on("message", async function (message) {
+    // console.log(message);
     try {
       const mesg = JSON.parse(message);
       switch (mesg.event) {
         case USER_CONNECTION:
+          await addUserToLobby(mesg.gameID, mesg.user);
           handler.initMessage(ws, mesg);
-          console.log(timeout.includes(mesg.user.userID), timeout);
           if (!timeout.includes(mesg.user.userID))
             connectionHandler(
               ws,

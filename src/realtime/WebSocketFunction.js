@@ -25,7 +25,7 @@ export function webSocketFunction(ws, req) {
           timeout.push(mesg.user.userID);
           setTimeout(() => {
             timeout = timeout.filter((id) => mesg.user.userID !== id);
-          }, 1000 * 30);
+          }, 1000 * 60 * 3);
           break;
         case CHAT_MESSAGE:
           if (!mesg.chatMessage) {

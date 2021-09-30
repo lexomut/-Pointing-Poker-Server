@@ -8,6 +8,11 @@ class FileService {
     try {
       const directory = path.resolve("static");
       fs.ensureDirSync(directory);
+    } catch (error) {
+      console.log(error);
+    }
+
+    try {
       const filePath = path.resolve("static", filename);
       file.mv(filePath);
     } catch (error) {

@@ -1,4 +1,5 @@
 import express from "express";
+import * as path from "node:path";
 import mongoose from "mongoose";
 import expressWsModule from "express-ws";
 import { gameRouter } from "./game/gameRouter.js";
@@ -6,6 +7,7 @@ import { playerRouter } from "./player/playerRouter.js";
 import fileUpload from "express-fileupload";
 import cors from "cors";
 import { webSocketFunction } from "./realtime/WebSocketFunction.js";
+const staticPath = path.resolve("static");
 const PORT = process.env.PORT || 5000;
 const DB_URL =
   "mongodb+srv://reactjs:reactjs@cluster0.gncmp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
@@ -23,7 +25,7 @@ app.use("/ws", router);
 // app.ws("/ws", webSocketFunction);
 app.use("/game", gameRouter);
 app.use("/player", playerRouter);
-app.use(express.static("src/static"));
+app.use(express.static(staticPath));
 app.use("/", (req, res) => {
   res.end("<h1>pointing-poker-server</h1>");
 });

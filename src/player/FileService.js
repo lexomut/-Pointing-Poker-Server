@@ -12,6 +12,7 @@ class FileService {
       console.log("директория не создана", error);
     }
     try {
+      if (!file) console.log("файла нет");
       await file.mv(fp);
     } catch (error) {
       console.log(`не могу переместить файл ${filename} пути ${fp}`, error);

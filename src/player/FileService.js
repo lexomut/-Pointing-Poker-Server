@@ -8,7 +8,7 @@ class FileService {
     try {
       const filePath = await path.resolve("static", filename);
       fp = filePath;
-      if (!filePath) console.log('путь не создан');
+      if (!filePath) console.log("путь не создан");
       console.log(filePath);
     } catch (error) {
       console.log("директория не создана", error);

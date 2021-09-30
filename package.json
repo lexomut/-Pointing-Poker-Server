@@ -25,6 +25,7 @@
     "express-fileupload": "^1.2.1",
     "express-ws": "^5.0.2",
     "mongoose": "^6.0.4",
+    "path": "^0.12.7",
     "uuid": "^8.3.2",
     "ws": "^8.2.1"
   },

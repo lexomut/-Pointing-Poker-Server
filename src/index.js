@@ -23,7 +23,7 @@ app.use("/ws", router);
 // app.ws("/ws", webSocketFunction);
 app.use("/game", gameRouter);
 app.use("/player", playerRouter);
-app.use(express.static("static"));
+app.use(express.  static("static"));
 app.use("/", (req, res) => {
   res.end("<h1>pointing-poker-server</h1>");
 });

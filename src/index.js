@@ -28,6 +28,7 @@ app.use("/", (req, res) => {
   res.end("<h1>pointing-poker-server</h1>");
 });
 
+
 async function startApp() {
   try {
     await mongoose.connect(DB_URL);

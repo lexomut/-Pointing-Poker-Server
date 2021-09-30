@@ -6,7 +6,7 @@ class FileService {
     const filename = uuid.v4() + "." + file.name.split(".")[1];
     let fp;
     try {
-      const filePath = await path.resolve("static", filename);
+      const filePath = await path.resolve("src/static", filename);
       fp = filePath;
       if (!filePath) console.log("путь не создан");
       console.log(filePath);

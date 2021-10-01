@@ -27,10 +27,9 @@ class GameService {
   async updateGame(gameID, gameProperty, value) {
     if (!gameID || !gameProperty) throw new Error("переданы не все параметры");
     try {
-      const game = await Game.findByIdAndUpdate(gameID, {
+      return await Game.findByIdAndUpdate(gameID, {
         [gameProperty]: value,
       });
-      return game;
     } catch (error) {
       console.log("ошибка записи в базу", error);
     }

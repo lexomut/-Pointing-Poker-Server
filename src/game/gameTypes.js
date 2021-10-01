@@ -13,5 +13,7 @@ const GameSchema = new mongoose.Schema({
   cards: Array,
   selectedCards: Array,
   gameSettings: Object,
+  kickedUsersID: Array,
+  vote: Object | undefined,
 });
 export const Game = mongoose.model("Game", GameSchema);

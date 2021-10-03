@@ -5,7 +5,7 @@ const Player = new mongoose.Schema({
   firstName: { type: String, required: true },
   lastName: String,
   jobPosition: String,
-  role: String,
+  roleInGame: String,
   imgSrc: String,
   userID: String,
   initials: String,

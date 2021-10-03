@@ -15,5 +15,6 @@ const GameSchema = new mongoose.Schema({
   gameSettings: Object,
   kickedUsersID: Array,
   vote: Object | undefined,
+  pendingUsers: Array,
 });
 export const Game = mongoose.model("Game", GameSchema);

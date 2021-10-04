@@ -7,7 +7,7 @@ export async function addUserToLobby(gameID, newUser) {
     // gameService.getGame(gameID).then((m) => console.log("до добавления", m));
     game.users.map((user) => user.userID);
     if (
-      (game.status === "pending" || game.status === "new") &&
+      game.status === "new" &&
       game.users.every((user) => user.userID !== newUser.userID)
     ) {
       const users = [...game.users, newUser];

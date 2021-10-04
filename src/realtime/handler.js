@@ -21,7 +21,7 @@ class Handler {
           );
           await gameService.updateGame(gameID, "users", users);
         }
-        const und = undefined;
+        const und = null;
         await gameService.updateGame(gameID, "vote", und);
       } else await gameService.updateGame(gameID, "vote", game.vote);
       const event = "initMessage";

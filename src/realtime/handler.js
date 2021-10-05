@@ -40,9 +40,12 @@ class Handler {
     this.broadcastMessage(ws, message);
   }
 
-  broadcastMessage(ws, message) {
+  async broadcastMessage(ws, message) {
     for (const client of aWss.clients) {
-      if (client.id === message.gameID) client.send(JSON.stringify(message));
+      if (client.id === message.gameID) {
+        await client.send(JSON.stringify(message));
+        console.log("broadcastMessage выполнен");
+      }
     }
   }
   async setGameState(ws, message) {
@@ -86,28 +89,31 @@ class Handler {
   }
   async setSelectedCards(ws, message) {
     const { gameID, user, card } = message;
-    // console.log("пользователь -", user.name, "выбрал карту--", card.value);
     try {
       const game = await gameService.getGame(gameID);
+
       // gameService.getGame(gameID).then(console.log);
       const { selectedCards, round, gameSettings, users } = game;
+      if (round.status !== "going") return;
       const newSelectedCards = selectedCards.filter(
         (object) => object.user.userID !== user.userID
       );
       newSelectedCards.push({ card, user });
-      game.selectedCards = newSelectedCards;
       await gameService.updateGame(gameID, "selectedCards", newSelectedCards);
-      if (
-        !gameSettings.isTimerNeeded &&
-        users.length === newSelectedCards.length
-      ) {
+      const cards = newSelectedCards.reduce(
+        (sum, object) => (object.card ? sum + 1 : sum),
+        0
+      );
+      if (!gameSettings.isTimerNeeded && users.length === cards) {
+        console.log("raund over");
         await gameService.updateGame(gameID, "round", {
           ...round,
           status: "over",
         });
       }
       const event = "initMessage";
-      await this.broadcastMessage(ws, { ...message, event, game });
+      const messageGame = await gameService.getGame(gameID);
+      await this.broadcastMessage(ws, { ...message, event, game: messageGame });
     } catch (error) {
       ws.send(
         "сервер: initMessage - при получении данных из базы произошла ошибка"

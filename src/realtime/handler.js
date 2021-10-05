@@ -94,6 +94,7 @@ class Handler {
 
       // gameService.getGame(gameID).then(console.log);
       const { selectedCards, round, gameSettings, users } = game;
+      const observers = users.filter((_user) => _user.role === "observer");
       if (round.status !== "going") return;
       const newSelectedCards = selectedCards.filter(
         (object) => object.user.userID !== user.userID
@@ -104,7 +105,10 @@ class Handler {
         (sum, object) => (object.card ? sum + 1 : sum),
         0
       );
-      if (!gameSettings.isTimerNeeded && users.length === cards) {
+      if (
+        !gameSettings.isTimerNeeded &&
+        users.length - observers.length === cards
+      ) {
         console.log("raund over");
         await gameService.updateGame(gameID, "round", {
           ...round,

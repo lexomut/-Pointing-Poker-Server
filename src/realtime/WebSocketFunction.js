@@ -1,6 +1,11 @@
 import { handler } from "./handler.js";
 import { addChatMessageToBase } from "../game/addChatMessageToBase.js";
-import { CHAT_MESSAGE, SET_GAME_STATE, USER_CONNECTION } from "./Constants.js";
+import {
+  CHAT_MESSAGE,
+  SET_GAME_STATE,
+  USER_CONNECTION,
+  CHOOSE_CARD,
+} from "./Constants.js";
 import { addUserToLobby } from "../game/addUserToLobby.js";
 import { VOTE } from "./Constants.js";
 
@@ -46,6 +51,10 @@ export function webSocketFunction(ws, req) {
         }
         case VOTE: {
           connectionHandler(ws, mesg, handler.addVoteToGameState.bind(handler));
+          break;
+        }
+        case CHOOSE_CARD: {
+          connectionHandler(ws, mesg, handler.setSelectedCards.bind(handler));
           break;
         }
       }

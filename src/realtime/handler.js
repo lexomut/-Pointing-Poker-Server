@@ -6,6 +6,7 @@ class Handler {
     const { gameID, user, vote } = message;
     try {
       const game = await gameService.getGame(gameID);
+      if (!game.vote) return;
       if (vote) game.vote.yes++;
       else game.vote.no++;
       game.vote.votedUsersID.push(user.userID);
@@ -21,7 +22,7 @@ class Handler {
           );
           await gameService.updateGame(gameID, "users", users);
         }
-        const und = null;
+        const und = undefined;
         await gameService.updateGame(gameID, "vote", und);
       } else await gameService.updateGame(gameID, "vote", game.vote);
       const event = "initMessage";
@@ -76,6 +77,37 @@ class Handler {
       const game = await gameService.getGame(gameID);
       const event = "initMessage";
       ws.send(JSON.stringify({ ...message, event, game }));
+    } catch (error) {
+      ws.send(
+        "сервер: initMessage - при получении данных из базы произошла ошибка"
+      );
+      console.log("при получении данных из базы произошла ошибка", error);
+    }
+  }
+  async setSelectedCards(ws, message) {
+    const { gameID, user, card } = message;
+    // console.log("пользователь -", user.name, "выбрал карту--", card.value);
+    try {
+      const game = await gameService.getGame(gameID);
+      // gameService.getGame(gameID).then(console.log);
+      const { selectedCards, round, gameSettings, users } = game;
+      const newSelectedCards = selectedCards.filter(
+        (object) => object.user.userID !== user.userID
+      );
+      newSelectedCards.push({ card, user });
+      game.selectedCards = newSelectedCards;
+      await gameService.updateGame(gameID, "selectedCards", newSelectedCards);
+      if (
+        !gameSettings.isTimerNeeded &&
+        users.length === newSelectedCards.length
+      ) {
+        await gameService.updateGame(gameID, "round", {
+          ...round,
+          status: "over",
+        });
+      }
+      const event = "initMessage";
+      await this.broadcastMessage(ws, { ...message, event, game });
     } catch (error) {
       ws.send(
         "сервер: initMessage - при получении данных из базы произошла ошибка"

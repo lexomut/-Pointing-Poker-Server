@@ -105,9 +105,10 @@ class Handler {
         (sum, object) => (object.card ? sum + 1 : sum),
         0
       );
+      const dealerISPlayer = gameSettings.dealerIsPlaying ? 0 : 1;
       if (
         !gameSettings.isTimerNeeded &&
-        users.length - observers.length === cards
+        users.length - observers.length - dealerISPlayer === cards
       ) {
         console.log("raund over");
         await gameService.updateGame(gameID, "round", {

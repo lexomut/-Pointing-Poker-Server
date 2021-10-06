@@ -17,5 +17,6 @@ const GameSchema = new mongoose.Schema({
   vote: Object | undefined,
   pendingUsers: Array,
   round: Object,
+  statistic: Array,
 });
 export const Game = mongoose.model("Game", GameSchema);

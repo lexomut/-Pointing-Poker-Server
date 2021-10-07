@@ -1,10 +1,11 @@
 import Player from "./playerTypes.js";
-import fileService from "./FileService.js";
+
+import { imageService } from "./imageService.js";
 
 class PlayerService {
   async createPlayer(playerConfig, file) {
     if (!playerConfig) throw new Error("нет оъекта игрока");
-    const avatarUrl = file ? await fileService.saveFile(file) : "default";
+    const avatarUrl = file ? await imageService.saveImage(file) : "default";
     try {
       playerConfig.initials = (
         playerConfig.firstName[0] + (playerConfig.lastName[0] || "")

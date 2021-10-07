@@ -7,6 +7,7 @@ import { playerRouter } from "./player/playerRouter.js";
 import fileUpload from "express-fileupload";
 import cors from "cors";
 import { webSocketFunction } from "./realtime/WebSocketFunction.js";
+import { imgRouter } from "./player/imgRouter.js";
 const staticPath = path.resolve("static");
 const PORT = process.env.PORT || 5000;
 const DB_URL =
@@ -24,12 +25,12 @@ app.use(express.json());
 app.use("/ws", router);
 // app.ws("/ws", webSocketFunction);
 app.use("/game", gameRouter);
+app.use("/img", imgRouter);
 app.use("/player", playerRouter);
 app.use(express.static(staticPath));
 app.use("/", (req, res) => {
   res.end("<h1>pointing-poker-server</h1>");
 });
-
 
 async function startApp() {
   try {

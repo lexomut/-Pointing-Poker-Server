@@ -29,7 +29,7 @@ class Handler {
       const newGame = await gameService.getGame(gameID);
       this.broadcastMessage(ws, { gameID, event, game: newGame });
     } catch (error) {
-      ws.send("при измемненни в базе произошла ошибка");
+      ws.send("при изменении в базе произошла ошибка");
       console.log(error);
     }
   }
@@ -70,7 +70,7 @@ class Handler {
         }, 1000 * 60 * 3);
       }
     } catch {
-      ws.send("при измемненни в базе произошла ошибка");
+      ws.send("при изменении в базе произошла ошибка");
       // console.log(error);
     }
   }
@@ -107,10 +107,9 @@ class Handler {
       );
       const dealerISPlayer = gameSettings.dealerIsPlaying ? 0 : 1;
       if (
-        !gameSettings.isTimerNeeded &&
         users.length - observers.length - dealerISPlayer === cards
       ) {
-        console.log("raund over");
+        console.log("round over");
         await gameService.updateGame(gameID, "round", {
           ...round,
           status: "over",

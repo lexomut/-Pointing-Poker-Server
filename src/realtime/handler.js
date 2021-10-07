@@ -94,21 +94,22 @@ class Handler {
 
       // gameService.getGame(gameID).then(console.log);
       const { selectedCards, round, gameSettings, users } = game;
-      const observers = users.filter((_user) => _user.role === "observer");
+      const observers = users.filter(
+        (_user) => _user.roleInGame === "observer"
+      );
       if (round.status !== "going") return;
       const newSelectedCards = selectedCards.filter(
         (object) => object.user.userID !== user.userID
       );
       newSelectedCards.push({ card, user });
       await gameService.updateGame(gameID, "selectedCards", newSelectedCards);
+
       const cards = newSelectedCards.reduce(
         (sum, object) => (object.card ? sum + 1 : sum),
         0
       );
       const dealerISPlayer = gameSettings.dealerIsPlaying ? 0 : 1;
-      if (
-        users.length - observers.length - dealerISPlayer === cards
-      ) {
+      if (users.length - observers.length - dealerISPlayer === cards) {
         console.log("round over");
         await gameService.updateGame(gameID, "round", {
           ...round,
